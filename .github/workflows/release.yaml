@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.vscode/**'
+      - '.idea/**'
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  DefiCuan-contracts-validate:
+    name: Run DefiCuan-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/DefiCuan-contracts-ci.yaml
+
+  DefiCuan-contracts-release:
+    name: Run DefiCuan-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/DefiCuan-contracts-cd.yaml
+    needs: DefiCuan-contracts-validate
+
+  DefiCuan-frontend-validate:
+    name: Run DefiCuan-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/DefiCuan-frontend-ci.yaml
+
+  DefiCuan-frontend-release:
+    name: Run DefiCuan-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/DefiCuan-frontend-cd.yaml
+    needs: DefiCuan-frontend-validate

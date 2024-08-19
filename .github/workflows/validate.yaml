@@ -1,0 +1,14 @@
+name: Pull Request validation
+
+on: [pull_request]
+
+
+jobs:
+  DefiCuan-contracts-ci:
+    name: Run DefiCuan-contracts validation
+    uses: ./.github/workflows/DefiCuan-contracts-ci.yaml
+
+  DefiCuan-frontend-ci:
+    name: Run DefiCuan-frontend validation
+    uses: ./.github/workflows/DefiCuan-frontend-ci.yaml
+
